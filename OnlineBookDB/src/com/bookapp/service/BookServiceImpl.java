@@ -34,12 +34,14 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public Book getBookById(int bookid) throws BookNotFoundException {
-		return null;
+		return bookDAO.getBookById(bookid);
 	}
 
 	@Override
-	public boolean updateBook(int bookid, int price) {
-		// TODO Auto-generated method stub
+	public boolean updateBook(int bookid, int price) throws BookNotFoundException{
+		if(!bookDAO.updateBook(bookid, price)) {
+			throw new BookNotFoundException("Invalid id");
+		}
 		return false;
 	}
 
@@ -52,8 +54,13 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public List<Book> getBookbyAuthor(String author) throws AuthorNotFoundException{
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return bookDAO.getBookbyAuthor(author).stream()
+			.sorted((book1, book2)->book1.getTitle().compareTo(book2.getTitle()))
+			.collect(Collectors.toList());
+		} catch (Exception e) {
+			throw new AuthorNotFoundException("Sorry author not found!!!");
+		}
 	}
 
 	@Override
