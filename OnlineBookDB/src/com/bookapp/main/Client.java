@@ -14,14 +14,19 @@ public class Client {
 	public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
-		BookService bs = new BookServiceImpl();
+		BookService bookService = new BookServiceImpl();
 		int choice = 0;
 		String wishContinue = null;
 
 		while (true) {
 			System.out.println("****MENU****");
-			System.out.println("1. Add new book\n2. Delete Book\n3. Update Book price\n4. Get all Books"
-					+ "\n5. Get a bit by ID\n6. Get book by author name\n7. Get book by category\n");
+			System.out.println("1. Add new book\n"
+					+ "2. Delete Book\n"
+					+ "3. Update Book price\n"
+					+ "4. Get all Books\n"
+					+ "5. Get a book by ID\n"
+					+ "6. Get book by author name\n"
+					+ "7. Get book by category\n");
 			System.out.print("Please enter your choice(1-7): ");
 			choice = scanner.nextInt();
 			scanner.nextLine();
@@ -46,7 +51,7 @@ public class Client {
 				System.out.print("Enter the price for the book: ");
 				book.setPrice(scanner.nextInt());
 				scanner.nextLine();
-				bs.addBook(book);
+				bookService.addBook(book);
 				System.out.println("Insertion Successfull");
 				break;
 
@@ -54,7 +59,7 @@ public class Client {
 				// Delete Book
 				System.out.print("Enter the book id which you want to delete: ");
 				try {
-					bs.deleteBook(scanner.nextInt());
+					bookService.deleteBook(scanner.nextInt());
 					System.out.println("Deletion successfull!!!");
 				} catch (BookNotFoundException e) {
 					System.out.println(e.getMessage());
@@ -73,7 +78,7 @@ public class Client {
 				int price = scanner.nextInt();
 				System.out.println();
 				try {
-					bs.updateBook(id, price);
+					bookService.updateBook(id, price);
 				} catch (BookNotFoundException e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
@@ -83,17 +88,17 @@ public class Client {
 
 			case 4:
 				// Get all books
-				for (Book allBook : bs.getAllBooks()) {
+				for (Book allBook : bookService.getAllBooks()) {
 					System.out.println(allBook);
 				}
-				scanner.nextLine();
+				//scanner.nextLine();
 				break;
 
 			case 5:
 				// Get a book by id
 				System.out.print("Enter the book id: ");
 				try {
-					System.out.println(bs.getBookById(scanner.nextInt()));
+					System.out.println(bookService.getBookById(scanner.nextInt()));
 				} catch (BookNotFoundException e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
@@ -105,7 +110,7 @@ public class Client {
 				// Get books by author name
 				System.out.print("Enter the author name: ");
 				try {
-					for (Book authorBook : bs.getBookbyAuthor(scanner.nextLine())) {
+					for (Book authorBook : bookService.getBookbyAuthor(scanner.nextLine())) {
 						System.out.println(authorBook);
 					}
 				} catch (AuthorNotFoundException e) {
@@ -119,7 +124,7 @@ public class Client {
 				// Get books by category
 				System.out.print("Enter the category type: ");
 				try {
-					for (Book categoryBook : bs.getBookbycategory(scanner.nextLine())) {
+					for (Book categoryBook : bookService.getBookbycategory(scanner.nextLine())) {
 						System.out.println(categoryBook);
 					}
 				} catch (CategoryNotFoundException e) {
