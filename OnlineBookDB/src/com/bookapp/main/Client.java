@@ -20,13 +20,9 @@ public class Client {
 
 		while (true) {
 			System.out.println("****MENU****");
-			System.out.println("1. Add new book\n"
-					+ "2. Delete Book\n"
-					+ "3. Update Book price\n"
-					+ "4. Get all Books\n"
-					+ "5. Get a book by ID\n"
-					+ "6. Get book by author name\n"
-					+ "7. Get book by category\n");
+			System.out
+					.println("1. Add new book\n" + "2. Delete Book\n" + "3. Update Book price\n" + "4. Get all Books\n"
+							+ "5. Get a book by ID\n" + "6. Get book by author name\n" + "7. Get book by category\n");
 			System.out.print("Please enter your choice(1-7): ");
 			choice = scanner.nextInt();
 			scanner.nextLine();
@@ -63,7 +59,6 @@ public class Client {
 					System.out.println("Deletion successfull!!!");
 				} catch (BookNotFoundException e) {
 					System.out.println(e.getMessage());
-					e.printStackTrace();
 				}
 				scanner.nextLine();
 				break;
@@ -81,7 +76,6 @@ public class Client {
 					bookService.updateBook(id, price);
 				} catch (BookNotFoundException e) {
 					System.out.println(e.getMessage());
-					e.printStackTrace();
 				}
 				scanner.nextLine();
 				break;
@@ -91,7 +85,7 @@ public class Client {
 				for (Book allBook : bookService.getAllBooks()) {
 					System.out.println(allBook);
 				}
-				//scanner.nextLine();
+				// scanner.nextLine();
 				break;
 
 			case 5:
@@ -101,7 +95,6 @@ public class Client {
 					System.out.println(bookService.getBookById(scanner.nextInt()));
 				} catch (BookNotFoundException e) {
 					System.out.println(e.getMessage());
-					e.printStackTrace();
 				}
 				scanner.nextLine();
 				break;
@@ -115,7 +108,6 @@ public class Client {
 					}
 				} catch (AuthorNotFoundException e) {
 					System.out.println(e.getMessage());
-					e.printStackTrace();
 				}
 				// scanner.nextLine();
 				break;
@@ -129,7 +121,6 @@ public class Client {
 					}
 				} catch (CategoryNotFoundException e) {
 					System.out.println(e.getMessage());
-					e.printStackTrace();
 				}
 				// scanner.nextLine();
 				break;

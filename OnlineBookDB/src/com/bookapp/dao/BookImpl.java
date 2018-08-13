@@ -31,11 +31,9 @@ public class BookImpl implements BookDAO {
 
 	@Override
 	public boolean deleteBook(int bookid) throws BookNotFoundException {
-		Connection connection = ModelDAO.openConnection();
-		PreparedStatement statement = null;
 		boolean result = true;
-		try {
-			statement = connection.prepareStatement("delete from book where bookid=?");
+		try (Connection connection = ModelDAO.openConnection();
+				PreparedStatement statement = connection.prepareStatement("delete from book where bookid=?");) {
 			statement.setInt(1, bookid);
 			int val = statement.executeUpdate();
 			if (val == 0) {
@@ -49,11 +47,10 @@ public class BookImpl implements BookDAO {
 
 	@Override
 	public Book getBookById(int bookid) throws BookNotFoundException {
-		Connection connection = ModelDAO.openConnection();
-		PreparedStatement statement = null;
+
 		Book book = new Book();
-		try {
-			statement = connection.prepareStatement("select * from book where bookid = ?");
+		try (Connection connection = ModelDAO.openConnection();
+				PreparedStatement statement = connection.prepareStatement("select * from book where bookid = ?");) {
 			statement.setInt(1, bookid);
 			ResultSet rs = statement.executeQuery();
 			if (!rs.next()) {
@@ -73,11 +70,10 @@ public class BookImpl implements BookDAO {
 
 	@Override
 	public boolean updateBook(int bookid, int price) throws BookNotFoundException {
-		Connection connection = ModelDAO.openConnection();
-		PreparedStatement statement = null;
 		boolean result = true;
-		try {
-			statement = connection.prepareStatement("update book set price = ? where bookid = ?");
+		try (Connection connection = ModelDAO.openConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("update book set price = ? where bookid = ?");) {
 			statement.setInt(1, price);
 			statement.setInt(2, bookid);
 			int val = statement.executeUpdate();
@@ -92,11 +88,9 @@ public class BookImpl implements BookDAO {
 
 	@Override
 	public List<Book> getAllBooks() {
-		Connection connection = ModelDAO.openConnection();
-		PreparedStatement statement = null;
 		List<Book> bookList = new ArrayList<>();
-		try {
-			statement = connection.prepareStatement("select * from book");
+		try (Connection connection = ModelDAO.openConnection();
+				PreparedStatement statement = connection.prepareStatement("select * from book");) {
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				Book book = new Book();
@@ -115,12 +109,11 @@ public class BookImpl implements BookDAO {
 
 	@Override
 	public List<Book> getBookbyAuthor(String author) throws AuthorNotFoundException {
-		Connection connection = ModelDAO.openConnection();
 		String sql = "select * from book where author = ?";
-		PreparedStatement statement = null;
 		List<Book> bookList = new ArrayList<>();
-		try {
-			statement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		try (Connection connection = ModelDAO.openConnection();
+				PreparedStatement statement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);) {
 			statement.setString(1, author);
 			ResultSet rs = statement.executeQuery();
 			if (!rs.next()) {
@@ -144,12 +137,12 @@ public class BookImpl implements BookDAO {
 
 	@Override
 	public List<Book> getBookbycategory(String category) throws CategoryNotFoundException {
-		Connection connection = ModelDAO.openConnection();
+
 		String sql = "select * from book where category = ?";
-		PreparedStatement statement = null;
 		List<Book> bookList = new ArrayList<>();
-		try {
-			statement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		try (Connection connection = ModelDAO.openConnection();
+				PreparedStatement statement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);) {
 			statement.setString(1, category);
 			ResultSet rs = statement.executeQuery();
 			if (!rs.next()) {
