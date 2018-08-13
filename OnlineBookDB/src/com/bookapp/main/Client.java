@@ -112,7 +112,7 @@ public class Client {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
 				}
-				scanner.nextLine();
+				// scanner.nextLine();
 				break;
 
 			case 7:
@@ -126,7 +126,7 @@ public class Client {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
 				}
-				scanner.nextLine();
+				// scanner.nextLine();
 				break;
 
 			default:
@@ -135,7 +135,7 @@ public class Client {
 			}
 
 			System.out.println();
-			System.out.print("Do you want to continue? ");
+			System.out.print("Do you want to continue(yes or no)? ");
 			wishContinue = scanner.nextLine();
 			if (wishContinue.equalsIgnoreCase("no")) {
 				System.out.println("      Thank you\t");
@@ -143,37 +143,7 @@ public class Client {
 				break;
 			}
 		}
-		/*
-		 * Book book = new Book(); book.setBookid(1); book.setTitle("Java Cookbook");
-		 * book.setAuthor("Oriely"); book.setCategory("Programming");
-		 * book.setPrice(2000);
-		 */
-		// bs.addBook(book);
-
-		/*
-		 * try { bs.deleteBook(1); } catch (BookNotFoundException e) {
-		 * System.out.println(e.getMessage()); e.printStackTrace(); }
-		 */
-
-		/*
-		 * for(Book book : bs.getAllBooks()) { System.out.println(book); }
-		 */
-
-		/*
-		 * try { for(Book book : bs.getBookbyAuthor("Oriely")) {
-		 * System.out.println(book); } } catch (AuthorNotFoundException e) {
-		 * System.out.println(e.getMessage()); e.printStackTrace(); }
-		 */
-
-		/*
-		 * try { System.out.println(bs.getBookById(2)); } catch (BookNotFoundException
-		 * e) { System.out.println(e.getMessage()); e.printStackTrace(); }
-		 */
-
-		/*
-		 * try { bs.updateBook(2, 5000); } catch (BookNotFoundException e) {
-		 * System.out.println(e.getMessage()); e.printStackTrace(); }
-		 */
+		scanner.close();
 
 	}
 
