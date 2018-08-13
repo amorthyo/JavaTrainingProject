@@ -54,7 +54,7 @@ public class BookImpl implements BookDAO {
 			statement.setInt(1, bookid);
 			ResultSet rs = statement.executeQuery();
 			if (!rs.next()) {
-				throw new BookNotFoundException("Sorry book not found");
+				throw new BookNotFoundException("Sorry no book available with book id " + bookid);
 			}
 			book.setBookid(rs.getInt("bookid"));
 			book.setTitle(rs.getString("title"));
@@ -91,14 +91,14 @@ public class BookImpl implements BookDAO {
 		List<Book> bookList = new ArrayList<>();
 		try (Connection connection = ModelDAO.openConnection();
 				PreparedStatement statement = connection.prepareStatement("select * from book");) {
-			ResultSet rs = statement.executeQuery();
-			while (rs.next()) {
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
 				Book book = new Book();
-				book.setBookid(rs.getInt("bookid"));
-				book.setTitle(rs.getString("title"));
-				book.setAuthor(rs.getString("author"));
-				book.setCategory(rs.getString("category"));
-				book.setPrice(rs.getInt("price"));
+				book.setBookid(resultSet.getInt("bookid"));
+				book.setTitle(resultSet.getString("title"));
+				book.setAuthor(resultSet.getString("author"));
+				book.setCategory(resultSet.getString("category"));
+				book.setPrice(resultSet.getInt("price"));
 				bookList.add(book);
 			}
 		} catch (SQLException e) {
@@ -115,18 +115,18 @@ public class BookImpl implements BookDAO {
 				PreparedStatement statement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
 						ResultSet.CONCUR_READ_ONLY);) {
 			statement.setString(1, author);
-			ResultSet rs = statement.executeQuery();
-			if (!rs.next()) {
-				throw new AuthorNotFoundException("Author not found");
+			ResultSet resultSet = statement.executeQuery();
+			if (!resultSet.next()) {
+				throw new AuthorNotFoundException("Sorry no book found with author " + author);
 			}
-			rs.beforeFirst();
-			while (rs.next()) {
+			resultSet.beforeFirst();
+			while (resultSet.next()) {
 				Book book = new Book();
-				book.setBookid(rs.getInt("bookid"));
-				book.setTitle(rs.getString("title"));
-				book.setAuthor(rs.getString("author"));
-				book.setCategory(rs.getString("category"));
-				book.setPrice(rs.getInt("price"));
+				book.setBookid(resultSet.getInt("bookid"));
+				book.setTitle(resultSet.getString("title"));
+				book.setAuthor(resultSet.getString("author"));
+				book.setCategory(resultSet.getString("category"));
+				book.setPrice(resultSet.getInt("price"));
 				bookList.add(book);
 			}
 		} catch (SQLException e) {
@@ -144,18 +144,18 @@ public class BookImpl implements BookDAO {
 				PreparedStatement statement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
 						ResultSet.CONCUR_READ_ONLY);) {
 			statement.setString(1, category);
-			ResultSet rs = statement.executeQuery();
-			if (!rs.next()) {
-				throw new CategoryNotFoundException("Sorry the category doesn't exists");
+			ResultSet resultSet = statement.executeQuery();
+			if (!resultSet.next()) {
+				throw new CategoryNotFoundException("Sorry no book found with category " + category);
 			}
-			rs.beforeFirst();
-			while (rs.next()) {
+			resultSet.beforeFirst();
+			while (resultSet.next()) {
 				Book book = new Book();
-				book.setBookid(rs.getInt("bookid"));
-				book.setTitle(rs.getString("title"));
-				book.setAuthor(rs.getString("author"));
-				book.setCategory(rs.getString("category"));
-				book.setPrice(rs.getInt("price"));
+				book.setBookid(resultSet.getInt("bookid"));
+				book.setTitle(resultSet.getString("title"));
+				book.setAuthor(resultSet.getString("author"));
+				book.setCategory(resultSet.getString("category"));
+				book.setPrice(resultSet.getInt("price"));
 				bookList.add(book);
 			}
 		} catch (SQLException e) {

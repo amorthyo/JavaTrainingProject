@@ -21,8 +21,13 @@ public class Client {
 		while (true) {
 			System.out.println("****MENU****");
 			System.out
-					.println("1. Add new book\n" + "2. Delete Book\n" + "3. Update Book price\n" + "4. Get all Books\n"
-							+ "5. Get a book by ID\n" + "6. Get book by author name\n" + "7. Get book by category\n");
+					.println("1. Add new book\n"
+								+ "2. Delete Book\n"
+								+ "3. Update Book price\n"
+								+ "4. Get all Books\n"
+								+ "5. Get a book by ID\n"
+								+ "6. Get book by author name\n"
+								+ "7. Get book by category\n");
 			System.out.print("Please enter your choice(1-7): ");
 			choice = scanner.nextInt();
 			scanner.nextLine();
@@ -56,6 +61,7 @@ public class Client {
 				System.out.print("Enter the book id which you want to delete: ");
 				try {
 					bookService.deleteBook(scanner.nextInt());
+					System.out.println();
 					System.out.println("Deletion successfull!!!");
 				} catch (BookNotFoundException e) {
 					System.out.println(e.getMessage());
@@ -71,13 +77,13 @@ public class Client {
 				System.out.print("Enter the new price: ");
 				System.out.println();
 				int price = scanner.nextInt();
+				scanner.nextLine();
 				System.out.println();
 				try {
 					bookService.updateBook(id, price);
 				} catch (BookNotFoundException e) {
 					System.out.println(e.getMessage());
 				}
-				scanner.nextLine();
 				break;
 
 			case 4:
@@ -133,6 +139,7 @@ public class Client {
 			System.out.println();
 			System.out.print("Do you want to continue(yes or no)? ");
 			wishContinue = scanner.nextLine();
+			System.out.println();
 			if (wishContinue.equalsIgnoreCase("no")) {
 				System.out.println("      Thank you\t");
 				System.out.println("Hope to see you soon");
